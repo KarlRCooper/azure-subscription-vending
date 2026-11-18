@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0",
+  "requestId": "c205355c-6852-48e5-b134-7f5826f0bcf0",
+  "requestedAtUtc": "2026-11-18T19:44:52.2239755+00:00",
+  "requestor": {
+    "name": "Alex Morgan",
+    "email": "alex.morgan@karlcooper.uk",
+    "department": "Digital Platforms",
+    "costCenter": "CC-4410",
+    "applicationName": "Customer Portal",
+    "businessJustification": "Hosts the new customer self-service portal; needs an isolated production subscription for PCI scope."
+  },
+  "subscription": {
+    "displayName": "Customer Portal - Productione",
+    "alias": "sub-customer-portal-prdw",
+    "workload": "Production",
+    "environment": "Production",
+    "tenantId": "7126ea68-78ea-4f57-919e-11b744f32d00",
+    "managementGroupId": "alz-landingzones-corp",
+    "archetype": "Corp",
+    "primaryRegion": "uksouth",
+    "secondaryRegion": "ukwest"
+  },
+  "billing": {
+    "agreementType": "MicrosoftCustomerAgreement",
+    "billingAccountId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:ffffffff-0000-1111-2222-333333333333_2019-05-31",
+    "billingProfileId": "AB12-CD34-EF5-GH6",
+    "invoiceSectionId": "IJ78-KL90-MN1-OP2",
+    "billingScope": "/providers/Microsoft.Billing/billingAccounts/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee:ffffffff-0000-1111-2222-333333333333_2019-05-31/billingProfiles/AB12-CD34-EF5-GH6/invoiceSections/IJ78-KL90-MN1-OP2"
+  },
+  "access": {
+    "roleAssignments": [
+      {
+        "principal": "sg-customer-portal-owners",
+        "principalType": "Group",
+        "roleDefinitionName": "Owner"
+      },
+      {
+        "principal": "sg-customer-portal-devs",
+        "principalType": "Group",
+        "roleDefinitionName": "Contributor"
+      },
+      {
+        "principal": "sg-finops",
+        "principalType": "Group",
+        "roleDefinitionName": "Cost Management Reader"
+      }
+    ],
+    "usePimForOwners": true
+  },
+  "networking": {
+    "deployVirtualNetwork": true,
+    "addressSpace": "10.20.0.0/16",
+    "subnets": [
+      {
+        "name": "snet-app",
+        "addressPrefix": "10.20.1.0/24",
+        "attachNsg": true,
+        "attachRouteTable": true
+      },
+      {
+        "name": "snet-data",
+        "addressPrefix": "10.20.2.0/24",
+        "attachNsg": true,
+        "attachRouteTable": true
+      }
+    ],
+    "peerToHub": true,
+    "hubNetworkResourceId": "/subscriptions/99999999-8888-7777-6666-555555555555/resourceGroups/rg-hub-uksouth/providers/Microsoft.Network/virtualNetworks/vnet-hub-uksouth",
+    "useRemoteGateway": true,
+    "dnsServers": [
+      "10.0.0.4"
+    ]
+  },
+  "governance": {
+    "tags": [
+      {
+        "key": "CostCenter",
+        "value": "CC-4410"
+      },
+      {
+        "key": "Application",
+        "value": "Customer Portal"
+      },
+      {
+        "key": "Environment",
+        "value": "Production"
+      },
+      {
+        "key": "Owner",
+        "value": "alex.morgan@karlcooper.uk"
+      },
+      {
+        "key": "Department",
+        "value": "Digital Platforms"
+      }
+    ],
+    "policyInitiatives": [
+      "Microsoft cloud security benchmark",
+      "PCI DSS v4"
+    ],
+    "allowedRegions": [
+      "uksouth",
+      "ukwest"
+    ],
+    "dataClassification": "Confidential",
+    "complianceFrameworks": [
+      "PCI DSS",
+      "ISO 27001"
+    ],
+    "logAnalyticsWorkspaceId": "/subscriptions/99999999-8888-7777-6666-555555555555/resourceGroups/rg-mgmt/providers/Microsoft.OperationalInsights/workspaces/law-central",
+    "resourceProvidersToRegister": [
+      "Microsoft.Network",
+      "Microsoft.Compute",
+      "Microsoft.Storage",
+      "Microsoft.KeyVault",
+      "Microsoft.Insights"
+    ]
+  },
+  "budget": {
+    "enabled": true,
+    "monthlyAmount": 2500,
+    "currency": "GBP",
+    "alertThresholds": [
+      50,
+      80,
+      100
+    ],
+    "notificationEmails": [
+      "alex.morgan@karlcooper.uk"
+    ]
+  },
+  "security": {
+    "securityContactEmail": "secops@karlcooper.uk",
+    "enableDefenderForCloud": true,
+    "defenderPlans": [
+      "VirtualMachines",
+      "StorageAccounts",
+      "KeyVaults",
+      "Arm"
+    ],
+    "enableActivityLogExport": true
+  }
+}
